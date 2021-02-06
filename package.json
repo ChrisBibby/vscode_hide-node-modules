@@ -17,7 +17,7 @@
     "color": "#000000",
     "theme": "dark"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "chrisbibby",
   "author": {
     "name": "Chris Bibby"
@@ -42,7 +42,8 @@
     "commands": [
       {
         "command": "hide-node-modules.hide",
-        "title": "Show/Hide Node Modules"
+        "title": "Show/Hide Node Modules",
+        "when": "hide-node-modules:containsPackageJson"
       }
     ],
     "menus": {
@@ -53,7 +54,15 @@
           "when": "hide-node-modules:containsPackageJson"
         }
       ]
-    }
+    },
+    "keybindings": [
+      {
+        "command": "hide-node-modules.hide",
+        "key": "ctrl+alt+n",
+        "mac": "cmd+alt+n",
+        "when": "hide-node-modules:containsPackageJson"
+      }
+    ]
   },
   "scripts": {
     "commit": "cz",
