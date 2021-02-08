@@ -4,6 +4,15 @@ All notable changes to the "Hide Node Modules" VScode extension will be document
 
 ### [Released]
 
+#### v0.0.3
+
+- Added auto-hide setting
+- Added status bar indicator
+
+#### v0.0.2
+- Fixed broken image
+- Added shortcut keys
+
 #### v0.0.1
 
 - Initial release

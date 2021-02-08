@@ -1,14 +1,14 @@
 {
   "name": "hide-node-modules",
   "displayName": "Hide Node Modules",
-  "description": "Show/Hide Node Modules within the File Explorer view",
+  "description": "Show/Hide Node Modules within the Explorer view",
   "icon": "images/hideNodeModules128.png",
   "license": "MIT",
   "keywords": [
     "node",
     "node modules",
     "node_modules",
-    "file explorer",
+    "explorer",
     "show",
     "hide",
     "files"
@@ -17,7 +17,7 @@
     "color": "#000000",
     "theme": "dark"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "chrisbibby",
   "author": {
     "name": "Chris Bibby"
@@ -39,6 +39,17 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Hide Node Modules",
+      "properties": {
+        "hide-node-modules.enable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Hide node_modules when opening new projects",
+          "scope": "application"
+        }
+      }
+    },
     "commands": [
       {
         "command": "hide-node-modules.hide",
@@ -70,7 +81,7 @@
     "lint": "eslint src --ext ts --max-warnings=0",
     "fix:prettier": "prettier \"**/*.ts\" --write",
     "package": "vsce package",
-    "vscode:prepublish": "npm run lint && npm run test && webpack --mode production",
+    "vscode:prepublish": "npm run lint && webpack --mode production",
     "webpack": "webpack --mode production",
     "webpack-dev": "webpack --mode development"
   },
@@ -87,7 +98,7 @@
     "ts-loader": "^8.0.15",
     "typescript": "^4.1.3",
     "vsce": "^1.85.0",
-    "webpack": "^5.21.0",
+    "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
   },
   "dependencies": {},

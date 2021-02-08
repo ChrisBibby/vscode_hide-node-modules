@@ -1,37 +1,55 @@
 import * as vscode from 'vscode';
 
-const packageJsonWatcher = vscode.workspace.createFileSystemWatcher('**/package*.json', false, true, false);
+interface Excluded {
+  [property: string]: boolean;
+}
+
+const AUTO_HIDE_SETTING = 'hide-node-modules.enable';
+const EXCLUDE = 'files.exclude';
+const FILE_FILE_PATTERN = '**package*.json';
+const FILE_WATCHER_PATTERN = '**/package*.json';
+const NODE_MODULES = '**/node_modules';
+const SHOW_HIDE_COMMAND = 'hide-node-modules.hide';
+
+const packageJsonWatcher = vscode.workspace.createFileSystemWatcher(FILE_WATCHER_PATTERN, false, true, false);
+const enableCommand = async () => vscode.commands.executeCommand('setContext', 'hide-node-modules:containsPackageJson', await hasPackageJson());
 
 function hideNodeModules(hide: boolean): void {
   const config = vscode.workspace.getConfiguration();
-  const excluded = config.get("files.exclude", {});
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (excluded as any)['**/node_modules'] = hide;
-  config.update("files.exclude", excluded);
+  const excluded: Excluded = config.get(EXCLUDE, {});
+  excluded[NODE_MODULES] = hide;
+  config.update(EXCLUDE, excluded);
 }
 
 function isNodeModulesVisible(): boolean {
-  const config = vscode.workspace.getConfiguration();
-  const excluded = config.get("files.exclude", {});
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (excluded as any)['**/node_modules'];
+  const excluded: Excluded = vscode.workspace.getConfiguration().get(EXCLUDE, {});
+  return excluded[NODE_MODULES];
 } 
 
-async function containsPackageJson(): Promise<boolean> {
-  return (await vscode.workspace.findFiles('**package*.json')).length > 0;
+function getAutoHideSetting(): boolean {
+  return vscode.workspace.getConfiguration().get(AUTO_HIDE_SETTING, false);
 }
 
-const showHideCommand = async () => vscode.commands.executeCommand('setContext', 'hide-node-modules:containsPackageJson', await containsPackageJson());
+function previouslySet(): boolean {
+  const excluded = vscode.workspace.getConfiguration().get(EXCLUDE, {});
+  return NODE_MODULES in excluded;
+}
+
+async function hasPackageJson(): Promise<boolean> {
+  return (await vscode.workspace.findFiles(FILE_FILE_PATTERN)).length > 0;
+}
 
 export async function activate(): Promise<void> {
-  packageJsonWatcher.onDidCreate(async () => showHideCommand());
-  packageJsonWatcher.onDidDelete(async () => showHideCommand());
+  packageJsonWatcher.onDidCreate(async () => enableCommand());
+  packageJsonWatcher.onDidDelete(async () => enableCommand());
 
-  showHideCommand(); 
+  if (!previouslySet() && getAutoHideSetting()) {
+    hideNodeModules(true);
+  }
+
+  enableCommand(); 
   
-  vscode.commands.registerCommand('hide-node-modules.hide', async () => {
+  vscode.commands.registerCommand(SHOW_HIDE_COMMAND, async () => {
     hideNodeModules(!isNodeModulesVisible());
   });
 }
