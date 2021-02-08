@@ -4,6 +4,8 @@ interface Excluded {
   [property: string]: boolean;
 }
 
+let statusBarItem: vscode.StatusBarItem;
+
 const AUTO_HIDE_SETTING = 'hide-node-modules.enable';
 const EXCLUDE = 'files.exclude';
 const FILE_FILE_PATTERN = '**package*.json';
@@ -19,6 +21,17 @@ function hideNodeModules(hide: boolean): void {
   const excluded: Excluded = config.get(EXCLUDE, {});
   excluded[NODE_MODULES] = hide;
   config.update(EXCLUDE, excluded);
+  updateStatusBar(hide);
+}
+
+function updateStatusBar(hide:boolean): void {
+  if (hide) {
+    statusBarItem.text = '$(eye-closed)';
+    statusBarItem.tooltip = 'node_modules - hidden';
+  } else {
+    statusBarItem.text = '$(eye)';
+    statusBarItem.tooltip = 'node_modules - visible';
+  }
 }
 
 function isNodeModulesVisible(): boolean {
@@ -39,9 +52,18 @@ async function hasPackageJson(): Promise<boolean> {
   return (await vscode.workspace.findFiles(FILE_FILE_PATTERN)).length > 0;
 }
 
-export async function activate(): Promise<void> {
+export async function activate({ subscriptions }: vscode.ExtensionContext): Promise<void> {
   packageJsonWatcher.onDidCreate(async () => enableCommand());
   packageJsonWatcher.onDidDelete(async () => enableCommand());
+
+  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+  statusBarItem.command = SHOW_HIDE_COMMAND, async () => {
+    hideNodeModules(!isNodeModulesVisible());
+  };
+
+  statusBarItem.show();
+	subscriptions.push(statusBarItem);
+  updateStatusBar(isNodeModulesVisible());
 
   if (!previouslySet() && getAutoHideSetting()) {
     hideNodeModules(true);
