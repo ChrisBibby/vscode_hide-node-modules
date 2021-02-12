@@ -26,11 +26,11 @@ function hideNodeModules(hide: boolean): void {
 
 function updateStatusBar(hide:boolean): void {
   if (hide) {
-    statusBarItem.text = '$(eye-closed)';
-    statusBarItem.tooltip = 'node_modules - hidden';
+    statusBarItem.text = '$(eye-closed) Node_Modules';
+    statusBarItem.tooltip = 'Node_Modules - hidden';
   } else {
-    statusBarItem.text = '$(eye)';
-    statusBarItem.tooltip = 'node_modules - visible';
+    statusBarItem.text = '$(eye) Node_Modules';
+    statusBarItem.tooltip = 'Node_Modules - visible';
   }
 }
 
@@ -77,5 +77,5 @@ export async function activate({ subscriptions }: vscode.ExtensionContext): Prom
 }
 
 export function deactivate(): void {
-  packageJsonWatcher.dispose();
+  // no-op.
 }
