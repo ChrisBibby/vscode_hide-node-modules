@@ -27,10 +27,10 @@ function hideNodeModules(hide: boolean): void {
 function updateStatusBar(hide:boolean): void {
   if (hide) {
     statusBarItem.text = '$(eye-closed) Node_Modules';
-    statusBarItem.tooltip = 'Node_Modules - hidden';
+    statusBarItem.tooltip = 'Node_Modules - Hidden';
   } else {
     statusBarItem.text = '$(eye) Node_Modules';
-    statusBarItem.tooltip = 'Node_Modules - visible';
+    statusBarItem.tooltip = 'Node_Modules - Visible';
   }
 }
 
