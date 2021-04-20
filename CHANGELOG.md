@@ -2,25 +2,28 @@
 
 All notable changes to the "Hide Node Modules" VScode extension will be documented in this file:
 
-### [Released]
+#### v0.0.6 (April 20 2021)
 
-#### v0.0.5
+- Fixed: Status bar should now only be visible when a project contains a `package*.json` 
+- Dependencies updated
 
-- Fixed some typos
-- Depedencies updated
-#### v0.0.4
+#### v0.0.5 (March 26 2021)
 
-- Updated status bar text
+- Fixed: Some typos
+- Dependencies updated
+#### v0.0.4 (February 14 2021)
 
-#### v0.0.3
+- Updated: Status bar text
 
-- Added auto-hide setting
-- Added status bar indicator
+#### v0.0.3 (February 8 2021)
 
-#### v0.0.2
-- Fixed broken image
-- Added shortcut keys
+- Added: Auto-hide setting
+- Added: Status bar indicator
 
-#### v0.0.1
+#### v0.0.2 (February 6 2021)
+- Fixed: Broken image
+- Added: Shortcut keys
+
+#### v0.0.1 (February 6 2021)
 
 - Initial release
