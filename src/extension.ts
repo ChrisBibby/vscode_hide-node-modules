@@ -14,7 +14,11 @@ const NODE_MODULES = '**/node_modules';
 const SHOW_HIDE_COMMAND = 'hide-node-modules.hide';
 
 const packageJsonWatcher = vscode.workspace.createFileSystemWatcher(FILE_WATCHER_PATTERN, false, true, false);
-const enableCommand = async () => vscode.commands.executeCommand('setContext', 'hide-node-modules:containsPackageJson', await hasPackageJson());
+const enableCommand = async () => {
+  const doesContain = await hasPackageJson();
+  vscode.commands.executeCommand('setContext', 'hide-node-modules:containsPackageJson', doesContain);
+  doesContain ? statusBarItem.show() : statusBarItem.hide();
+};
 
 function hideNodeModules(hide: boolean): void {
   const config = vscode.workspace.getConfiguration();
@@ -61,7 +65,6 @@ export async function activate({ subscriptions }: vscode.ExtensionContext): Prom
     hideNodeModules(!isNodeModulesVisible());
   };
 
-  statusBarItem.show();
 	subscriptions.push(statusBarItem);
   updateStatusBar(isNodeModulesVisible());
 
