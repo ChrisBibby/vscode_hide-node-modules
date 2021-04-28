@@ -2,6 +2,11 @@
 
 All notable changes to the "Hide Node Modules" VScode extension will be documented in this file:
 
+#### v0.0.7 (April 28 2021)
+
+- Readme: Added section explaining how to manually unhide the `node_modules` folder
+- Dependencies updated
+
 #### v0.0.6 (April 20 2021)
 
 - Fixed: Status bar should now only be visible when a project contains a `package*.json` 
