@@ -37,6 +37,9 @@
   "activationEvents": [
     "*"
   ],
+  "capabilities": {
+    "virtualWorkspaces": false
+  },
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
