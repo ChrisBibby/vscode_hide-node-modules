@@ -88,7 +88,7 @@
   "devDependencies": {
     "@types/node": "^15.0.1",
     "@types/vscode": "^1.55.0",
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.0",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.3.0",
