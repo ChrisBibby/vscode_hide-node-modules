@@ -8,7 +8,7 @@ let statusBarItem: vscode.StatusBarItem;
 
 const AUTO_HIDE_SETTING = 'hide-node-modules.enable';
 const EXCLUDE = 'files.exclude';
-const FILE_FILE_PATTERN = '**package*.json';
+const FILE_FILE_PATTERN = '**/**package*.json';
 const FILE_WATCHER_PATTERN = '**/package*.json';
 const NODE_MODULES = '**/node_modules';
 const SHOW_HIDE_COMMAND = 'hide-node-modules.hide';

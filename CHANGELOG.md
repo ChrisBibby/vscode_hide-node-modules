@@ -4,6 +4,7 @@ All notable changes to the "Hide Node Modules" VScode extension will be document
 
 ### v0.0.8
 
+- Fixed: Context menu not visible with no root package.json (issue #65)
 - Fixed: Extension disabled when opening remote repositories (vscode insiders)
 - Dependencies updated
 
