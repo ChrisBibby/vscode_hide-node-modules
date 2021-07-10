@@ -1,3 +1,4 @@
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/ChrisBibby/vscode_hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/version/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/installs/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/rating/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules&ssr=false#review-details)
