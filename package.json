@@ -89,7 +89,7 @@
     "webpack-dev": "webpack --mode development"
   },
   "devDependencies": {
-    "@types/node": "^16.6.1",
+    "@types/node": "^16.7.1",
     "@types/vscode": "^1.59.0",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
