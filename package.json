@@ -8,16 +8,18 @@
     "node",
     "node modules",
     "node_modules",
-    "explorer",
+    "nodejs",
     "show",
     "hide",
-    "files"
+    "files",
+    "npm",
+    "yarn"
   ],
   "galleryBanner": {
     "color": "#000000",
     "theme": "dark"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "chrisbibby",
   "author": {
     "name": "Chris Bibby"
@@ -29,16 +31,16 @@
   "homepage": "https://github.com/ChrisBibby/vscode_hide-node-modules",
   "bugs": "https://github.com/ChrisBibby/vscode_hide-node-modules/issues",
   "engines": {
-    "vscode": "^1.64.0"
+    "vscode": "^1.64.2"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "capabilities": {
-    "virtualWorkspaces": false
+    "virtualWorkspaces": true
   },
   "main": "./dist/extension.js",
   "contributes": {
