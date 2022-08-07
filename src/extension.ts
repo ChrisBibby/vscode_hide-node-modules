@@ -11,21 +11,25 @@ const EXCLUDE = 'files.exclude';
 const FILE_FILE_PATTERN = '**/**package*.json';
 const FILE_WATCHER_PATTERN = '**/package*.json';
 const NODE_MODULES = '**/node_modules';
-const SHOW_HIDE_COMMAND = 'hide-node-modules.hide';
+const HIDE_COMMAND = 'hide-node-modules.hide';
+const SHOW_COMMAND = 'hide-node-modules.show';
 
 const packageJsonWatcher = vscode.workspace.createFileSystemWatcher(FILE_WATCHER_PATTERN, false, true, false);
+
 const enableCommand = async () => {
   const doesContain = await hasPackageJson();
   vscode.commands.executeCommand('setContext', 'hide-node-modules:containsPackageJson', doesContain);
+  vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', isNodeModulesVisible());
   doesContain ? statusBarItem.show() : statusBarItem.hide();
 };
 
-function hideNodeModules(hide: boolean): void {
+function hideNodeModules(hidden: boolean): void {
   const config = vscode.workspace.getConfiguration();
   const excluded: Excluded = config.get(EXCLUDE, {});
-  excluded[NODE_MODULES] = hide;
+  excluded[NODE_MODULES] = hidden;
   config.update(EXCLUDE, excluded);
-  updateStatusBar(hide);
+  updateStatusBar(hidden);
+  vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', hidden);
 }
 
 function updateStatusBar(hide: boolean): void {
@@ -56,17 +60,29 @@ async function hasPackageJson(): Promise<boolean> {
   return (await vscode.workspace.findFiles(FILE_FILE_PATTERN)).length > 0;
 }
 
+const hideCommand = vscode.commands.registerCommand(HIDE_COMMAND, async () => {
+  hideNodeModules(true);
+});
+
+const showCommand = vscode.commands.registerCommand(SHOW_COMMAND, async () => {
+  hideNodeModules(false);
+});
+
 export async function activate({ subscriptions }: vscode.ExtensionContext): Promise<void> {
+  subscriptions.push(hideCommand);
+  subscriptions.push(showCommand);
+
   packageJsonWatcher.onDidCreate(async () => enableCommand());
   packageJsonWatcher.onDidDelete(async () => enableCommand());
 
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
-  (statusBarItem.command = SHOW_HIDE_COMMAND),
+  (statusBarItem.command = SHOW_COMMAND),
     async () => {
       hideNodeModules(!isNodeModulesVisible());
     };
 
   subscriptions.push(statusBarItem);
+
   updateStatusBar(isNodeModulesVisible());
 
   if (!previouslySet() && getAutoHideSetting()) {
@@ -74,10 +90,6 @@ export async function activate({ subscriptions }: vscode.ExtensionContext): Prom
   }
 
   enableCommand();
-
-  vscode.commands.registerCommand(SHOW_HIDE_COMMAND, async () => {
-    hideNodeModules(!isNodeModulesVisible());
-  });
 }
 
 export function deactivate(): void {
