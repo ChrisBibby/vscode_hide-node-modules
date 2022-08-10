@@ -4,8 +4,8 @@ interface Excluded {
   [property: string]: boolean;
 }
 
-let hideStatusBarItem: vscode.StatusBarItem;
-let showStatusBarItem: vscode.StatusBarItem;
+const disposables: vscode.Disposable[] = [];
+let statusBarItem: vscode.StatusBarItem;
 
 const AUTO_HIDE_SETTING = 'hide-node-modules.enable';
 const EXCLUDE = 'files.exclude';
@@ -19,8 +19,7 @@ const packageJsonWatcher = vscode.workspace.createFileSystemWatcher(FILE_WATCHER
 
 const enableCommand = async () => {
   vscode.commands.executeCommand('setContext', 'hide-node-modules:containsPackageJson', await hasPackageJson());
-  vscode.window.showErrorMessage(`enableCommand ${isNodeModulesVisible()}`);
-  updateUI(!isNodeModulesVisible());
+  (await hasPackageJson()) ? statusBarItem.show() : statusBarItem.hide();
 };
 
 function hideNodeModules(hidden: boolean): void {
@@ -28,18 +27,15 @@ function hideNodeModules(hidden: boolean): void {
   const excluded: Excluded = config.get(EXCLUDE, {});
   excluded[NODE_MODULES] = hidden;
   config.update(EXCLUDE, excluded);
-  // updateUI(hidden);
-}
-
-async function updateUI(hidden: boolean): Promise<void> {
   vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', hidden);
-  (await hasPackageJson()) && hidden ? hideStatusBarItem.hide() : hideStatusBarItem.show();
-  (await hasPackageJson()) && !hidden ? showStatusBarItem.hide() : showStatusBarItem.show();
-}
 
-function isNodeModulesVisible(): boolean {
-  const excluded: Excluded = vscode.workspace.getConfiguration().get(EXCLUDE, {});
-  return excluded[NODE_MODULES];
+  statusBarItem.text = hidden ? '$(eye-closed) Node_Modules' : '$(eye) Node_Modules';
+  statusBarItem.tooltip = hidden ? 'Node_Modules - Hidden' : 'Node_Modules - Visible';
+
+  (statusBarItem.command = hidden ? SHOW_COMMAND : HIDE_COMMAND),
+    async () => {
+      hideNodeModules(hidden);
+    };
 }
 
 function getAutoHideSetting(): boolean {
@@ -51,45 +47,46 @@ function previouslySet(): boolean {
   return NODE_MODULES in excluded;
 }
 
+function isNodeModulesVisible(): boolean {
+  const excluded: Excluded = vscode.workspace.getConfiguration().get(EXCLUDE, {});
+  return excluded[NODE_MODULES];
+}
+
 async function hasPackageJson(): Promise<boolean> {
   return (await vscode.workspace.findFiles(FILE_FILE_PATTERN)).length > 0;
 }
 
-const hideCommand = vscode.commands.registerCommand(HIDE_COMMAND, async () => {
-  hideNodeModules(true);
-});
+disposables.push(
+  vscode.commands.registerCommand(HIDE_COMMAND, async () => {
+    hideNodeModules(true);
+  })
+);
 
-const showCommand = vscode.commands.registerCommand(SHOW_COMMAND, async () => {
-  hideNodeModules(false);
-});
+disposables.push(
+  vscode.commands.registerCommand(SHOW_COMMAND, async () => {
+    hideNodeModules(false);
+  })
+);
 
 export async function activate({ subscriptions }: vscode.ExtensionContext): Promise<void> {
   packageJsonWatcher.onDidCreate(async () => enableCommand());
   packageJsonWatcher.onDidDelete(async () => enableCommand());
 
-  hideStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
-  showStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
-  (hideStatusBarItem.command = HIDE_COMMAND),
+  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+
+  statusBarItem.text = isNodeModulesVisible() ? '$(eye-closed) Node_Modules' : '$(eye) Node_Modules';
+  statusBarItem.tooltip = isNodeModulesVisible() ? 'Node_Modules - Hidden' : 'Node_Modules - Visible';
+
+  (statusBarItem.command = isNodeModulesVisible() ? SHOW_COMMAND : HIDE_COMMAND),
     async () => {
-      hideNodeModules(false);
+      hideNodeModules(isNodeModulesVisible());
     };
-
-  (showStatusBarItem.command = SHOW_COMMAND),
-    async () => {
-      hideNodeModules(true);
-    };
-
-  hideStatusBarItem.text = '$(eye-closed) Node_Modules';
-  hideStatusBarItem.tooltip = 'Node_Modules - Hidden';
-
-  showStatusBarItem.text = '$(eye) Node_Modules';
-  showStatusBarItem.tooltip = 'Node_Modules - Visible';
-
-  subscriptions.push(hideCommand, showCommand, hideStatusBarItem, showStatusBarItem);
 
   if (!previouslySet() && getAutoHideSetting()) {
     hideNodeModules(true);
   }
+
+  subscriptions.push(...disposables, statusBarItem);
 
   enableCommand();
 }
