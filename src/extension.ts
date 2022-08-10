@@ -72,8 +72,9 @@ export async function activate({ subscriptions }: vscode.ExtensionContext): Prom
   packageJsonWatcher.onDidCreate(async () => enableCommand());
   packageJsonWatcher.onDidDelete(async () => enableCommand());
 
-  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+  vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', isNodeModulesVisible());
 
+  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
   statusBarItem.text = isNodeModulesVisible() ? '$(eye-closed) Node_Modules' : '$(eye) Node_Modules';
   statusBarItem.tooltip = isNodeModulesVisible() ? 'Node_Modules - Hidden' : 'Node_Modules - Visible';
 
