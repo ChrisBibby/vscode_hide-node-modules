@@ -1,12 +1,13 @@
 [![](https://vsmarketplacebadge.apphb.com/version/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/installs/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/rating/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules&ssr=false#review-details)
+![Known Vulnerabilities](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules/badge.svg)
 
 # Hide Node Modules README
 
-This VSCode extension adds the ability to show and hide the node modules folder from within the explorer, via a context-menu, shortcut keys, command palette or status bar. The option to hide/show the node_modules folder is only available if a `package.json` or `package-lock.json` is detected within the current workspace folder.
+This VSCode extension adds the ability to show and hide the node modules folder from within the explorer, via a context-menu, shortcut keys, command palette or status bar. The option to show or hide the node_modules folder is only available if a `package.json` or `package-lock.json` is detected within the current workspace folder.
 
-![Hide Node Modules VSCode Extension](https://raw.githubusercontent.com/chrisbibby/vscode_hide-node-modules/master/resources/hide-node-modules_screenshot_01.png 'Hide Node Modules')
+![Hide Node Modules VSCode Extension](./resources/hide-node-modules_screenshot_01.png 'Hide Node Modules')
 
 ## Features
 
@@ -19,7 +20,7 @@ This VSCode extension adds the ability to show and hide the node modules folder 
 
 | Action                          | Windows / Linux | macOS           | Command Palette        |
 | ------------------------------- | --------------- | --------------- | ---------------------- |
-| Show/Hide 'node_modules' folder | `ctrl-alt-n`    | `command-alt-n` | Show/Hide Node Modules |
+| Show/Hide 'node_modules' folder | `ctrl-alt-n`    | `cmd-alt-n` | Show/Hide Node Modules |
 
 ## How to manually unhide node_modules
 
