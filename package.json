@@ -87,7 +87,13 @@
         "command": "hide-node-modules.hide",
         "key": "ctrl+alt+n",
         "mac": "cmd+alt+n",
-        "when": "hide-node-modules:containsPackageJson"
+        "when": "!hide-node-modules:isHidden && hide-node-modules:containsPackageJson"
+      },
+      {
+        "command": "hide-node-modules.show",
+        "key": "ctrl+alt+n",
+        "mac": "cmd+alt+n",
+        "when": "hide-node-modules:isHidden && hide-node-modules:containsPackageJson"
       }
     ]
   },

@@ -18,9 +18,10 @@ This VSCode extension adds the ability to show and hide the node modules folder 
 
 ## How to use
 
-| Action                          | Windows / Linux | macOS       | Command Palette        |
-| ------------------------------- | --------------- | ----------- | ---------------------- |
-| Show/Hide 'node_modules' folder | `ctrl-alt-n`    | `cmd-alt-n` | Show/Hide Node Modules |
+| Action            | Windows / Linux | macOS       | Command Palette     |
+| ----------------- | --------------- | ----------- | ------------------- |
+| Hide Node Modules | `ctrl-alt-n`    | `cmd-alt-n` | > Hide Node Modules |
+| Show Node Modules | `ctrl-alt-n`    | `cmd-alt-n` | > Show Node Modules |
 
 ## How to manually unhide node_modules
 
