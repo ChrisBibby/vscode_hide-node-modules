@@ -1,7 +1,8 @@
 [![](https://vsmarketplacebadge.apphb.com/version/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/installs/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![](https://vsmarketplacebadge.apphb.com/rating/chrisbibby.hide-node-modules.svg)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules&ssr=false#review-details)
-![Known Vulnerabilities](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules/badge.svg)
+[![Known Vulnerabilities](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules/badge.svg)](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules)
+[![OpenVSX Downloads](https://shields.io/open-vsx/dt/ChrisBibby/hide-node-modules?label=Open%20VSX%20Downloads&style=flat-square&color=green)](https://open-vsx.org/extension/chrisbibby/hide-node-modules)
 
 # Hide Node Modules README
 
