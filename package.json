@@ -53,6 +53,12 @@
           "default": false,
           "description": "Hide node_modules when opening new projects",
           "scope": "application"
+        },
+        "hide-node-modules.user-setting": {
+          "type": "boolean",
+          "default": false,
+          "description": "Store node_modules exclusion setting in user settings rather than workspace",
+          "scope": "application"
         }
       }
     },
