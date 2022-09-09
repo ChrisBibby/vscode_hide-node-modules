@@ -20,7 +20,7 @@
     "color": "#000000",
     "theme": "dark"
   },
-  "version": "1.1.2",
+  "version": "1.1.3",
   "publisher": "chrisbibby",
   "author": {
     "name": "Chris Bibby"
@@ -51,13 +51,13 @@
         "hide-node-modules.enable": {
           "type": "boolean",
           "default": false,
-          "description": "Hide node_modules when opening new projects",
+          "markdownDescription": "Hide `node_modules` when opening new projects",
           "scope": "application"
         },
         "hide-node-modules.user-setting": {
           "type": "boolean",
           "default": false,
-          "description": "Store node_modules exclusion setting in user settings rather than workspace",
+          "markdownDescription": "Store `node_modules` exclusion setting within user settings (default is per workspace)",
           "scope": "application"
         }
       }

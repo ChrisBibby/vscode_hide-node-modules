@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 
-interface Excluded {
+type Excluded = {
   [property: string]: boolean;
-}
+};
 
 let statusBarItem: vscode.StatusBarItem;
 
@@ -26,6 +26,13 @@ const enableCommand = async () => {
 function hideNodeModules(hidden: boolean): void {
   const config = vscode.workspace.getConfiguration();
   const excluded: Excluded = config.get(EXCLUDE, {});
+
+  if (getUserSetting()) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { [NODE_MODULES]: value, ...withouthNodeModules }: Excluded = config.get(EXCLUDE, {});
+    config.update(EXCLUDE, withouthNodeModules, vscode.ConfigurationTarget.Workspace);
+  }
+
   excluded[NODE_MODULES] = hidden;
   config.update(EXCLUDE, excluded, getUserSetting() ? vscode.ConfigurationTarget.Global : null);
   vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', hidden);
