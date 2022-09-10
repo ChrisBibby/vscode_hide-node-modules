@@ -25,16 +25,22 @@ const enableCommand = async () => {
 
 function hideNodeModules(hidden: boolean): void {
   const config = vscode.workspace.getConfiguration();
-  const excluded: Excluded = config.get(EXCLUDE, {});
+  const excludedSettings: Excluded = config.get(EXCLUDE, {});
 
   if (getUserSetting()) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { [NODE_MODULES]: value, ...withouthNodeModules }: Excluded = config.get(EXCLUDE, {});
-    config.update(EXCLUDE, withouthNodeModules, vscode.ConfigurationTarget.Workspace);
+    const workspaceExcludedSettings: Excluded = config.get(EXCLUDE, {});
+    const cleanWorkspaceSettings: Excluded = Object.keys(workspaceExcludedSettings)
+      .filter((prop) => prop !== NODE_MODULES)
+      .reduce((obj: Excluded, key: string) => {
+        obj[key] = workspaceExcludedSettings[key];
+        return obj;
+      }, {});
+
+    config.update(EXCLUDE, cleanWorkspaceSettings, vscode.ConfigurationTarget.Workspace);
   }
 
-  excluded[NODE_MODULES] = hidden;
-  config.update(EXCLUDE, excluded, getUserSetting() ? vscode.ConfigurationTarget.Global : null);
+  excludedSettings[NODE_MODULES] = hidden;
+  config.update(EXCLUDE, excludedSettings, getUserSetting() ? vscode.ConfigurationTarget.Global : null);
   vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', hidden);
   toggleStatusBar(hidden);
 }
