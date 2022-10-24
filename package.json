@@ -108,7 +108,7 @@
     "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch"
   },
   "devDependencies": {
-    "@types/node": "^17.0.45",
+    "@types/node": "^18.11.4",
     "@types/vscode": "^1.70.0",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
