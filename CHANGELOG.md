@@ -2,11 +2,11 @@
 
 All notable changes to the "Hide Node Modules" VScode extension will be documented in this file:
 
-#### v1.1.3 - PreRelease (September 10 2022)
+#### v1.1.4 - (November 25 2022)
 
 - Added a new setting to use global/user settings for hiding/showing of `node_modules` instead of workspace settings (Thanks to @JohnCampionJr)
-- ~Readme updated~
-- ~Dependencies updated~
+- Updated dependencies
+- Updated readme
 
 #### v1.1.2 (September 04 2022)
 
