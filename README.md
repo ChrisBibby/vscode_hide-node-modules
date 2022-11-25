@@ -16,6 +16,7 @@ This VSCode extension adds the ability to show and hide the `node_modules` folde
 - Explorer context menu
 - Auto hide `node_modules` when opening a new folder
 - Status bar indicator when hiding a `node_modules` folder
+- Setting configurable between workspace and global
 
 ## How to use
 
