@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
 
-interface Excluded {
+type Excluded = {
   [property: string]: boolean;
-}
+};
 
 let statusBarItem: vscode.StatusBarItem;
 
 const disposables: vscode.Disposable[] = [];
 const AUTO_HIDE_SETTING = 'hide-node-modules.enable';
+const USER_SETTING = 'hide-node-modules.user-setting';
 const EXCLUDE = 'files.exclude';
 const FILE_FILE_PATTERN = '**/**package*.json';
 const FILE_WATCHER_PATTERN = '**/package*.json';
@@ -24,9 +25,22 @@ const enableCommand = async () => {
 
 function hideNodeModules(hidden: boolean): void {
   const config = vscode.workspace.getConfiguration();
-  const excluded: Excluded = config.get(EXCLUDE, {});
-  excluded[NODE_MODULES] = hidden;
-  config.update(EXCLUDE, excluded);
+  const excludedSettings: Excluded = config.get(EXCLUDE, {});
+
+  if (getUserSetting()) {
+    const workspaceExcludedSettings: Excluded = config.get(EXCLUDE, {});
+    const cleanWorkspaceSettings: Excluded = Object.keys(workspaceExcludedSettings)
+      .filter((prop) => prop !== NODE_MODULES)
+      .reduce((obj: Excluded, key: string) => {
+        obj[key] = workspaceExcludedSettings[key];
+        return obj;
+      }, {});
+
+    config.update(EXCLUDE, cleanWorkspaceSettings, vscode.ConfigurationTarget.Workspace);
+  }
+
+  excludedSettings[NODE_MODULES] = hidden;
+  config.update(EXCLUDE, excludedSettings, getUserSetting() ? vscode.ConfigurationTarget.Global : null);
   vscode.commands.executeCommand('setContext', 'hide-node-modules:isHidden', hidden);
   toggleStatusBar(hidden);
 }
@@ -42,6 +56,10 @@ function toggleStatusBar(hidden: boolean) {
 }
 function getAutoHideSetting(): boolean {
   return vscode.workspace.getConfiguration().get(AUTO_HIDE_SETTING, false);
+}
+
+function getUserSetting(): boolean {
+  return vscode.workspace.getConfiguration().get(USER_SETTING, false);
 }
 
 function previouslySet(): boolean {
