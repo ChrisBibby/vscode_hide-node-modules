@@ -1,0 +1,79 @@
+name: Marketplace Deployment
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Read Extension Name, Publisher & Version
+        run: |
+          echo "EXTENSION_NAME=$( jq -r .name ./package.json )" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$( jq -r .version ./package.json )" >> $GITHUB_ENV
+          echo "PUBLISHER=$( jq -r .publisher ./package.json )" >> $GITHUB_ENV
+      - name: Install VSCode VSCE
+        run: npm i -g @vscode/vsce@latest
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build VSCode Marketplace Extension
+        run: npm run package
+      - uses: actions/upload-artifact@v3
+        with:
+          name: vscode-marketplace-extension-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ github.workspace }}/${{ env.EXTENSION_NAME }}-${{ env.PACKAGE_VERSION }}.vsix
+    outputs:
+      extension_name: ${{ env.EXTENSION_NAME }}
+      package_version: ${{ env.PACKAGE_VERSION }}
+      publisher: ${{ env.PUBLISHER }}
+
+  vscode:
+    needs: [build]
+    name: Deploy to VSCode Marketplace
+    environment: 'vscode'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        id: download-artifact
+        with:
+          name: vscode-marketplace-extension-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Install VSCode VSCE
+        run: npm i -g @vscode/vsce@latest
+      - name: Deploying to VSCode Marketplace
+        run: |
+          vsce publish -i ${{ github.workspace }}/${{ needs.build.outputs.extension_name }}-${{ needs.build.outputs.package_version }}.vsix -p ${{ secrets.VSCE_PAT }}
+          echo "https://marketplace.visualstudio.com/items?itemName=${{ needs.build.outputs.publisher }}.${{ needs.build.outputs.extension_name }}" >> $GITHUB_STEP_SUMMARY
+
+  openvsx:
+    needs: [build]
+    name: Deploy to OpenVSX Marketplace
+    environment: 'openvsx'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        id: download-artifact
+        with:
+          name: vscode-marketplace-extension-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Install OpenVSX
+        run: npm i -g ovsx@latest
+      - name: Deploying to OpenVSX Marketplace
+        run: |
+          ovsx publish -i ${{ github.workspace }}/${{ needs.build.outputs.extension_name }}-${{ needs.build.outputs.package_version }}.vsix -p ${{ secrets.OVSX_PAT }}
+          echo "https://open-vsx.org/extension/${{ needs.build.outputs.publisher }}/${{ needs.build.outputs.extension_name }}" >> $GITHUB_STEP_SUMMARY

@@ -1,15 +1,16 @@
-name: Hide-Node-Modules
-on: [push, pull_request]
+name: Build and Test
+on: [pull_request]
 jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18.x'
+
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -19,5 +20,9 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-
             ${{ runner.OS }}-
-      - run: npm ci
-      - run: npm run package
+      - name: Installing VSCode VSCE
+        run: npm i -g @vscode/vsce@latest
+      - name: Installing Dependencies
+        run: npm ci
+      - name: Building VSCode Extension
+        run: npm run package
