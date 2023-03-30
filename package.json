@@ -114,15 +114,15 @@
     "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch"
   },
   "devDependencies": {
-    "@types/node": "^18.15.3",
+    "@types/node": "^18.15.11",
     "@types/vscode": "^1.76.0",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "@vscode/vsce": "^2.18.0",
-    "esbuild": "^0.17.12",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
-    "prettier": "^2.8.4",
+    "esbuild": "^0.17.14",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^2.8.7",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.2"
   }
