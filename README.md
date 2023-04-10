@@ -1,12 +1,12 @@
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/chrisbibby.hide-node-modules)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
-[![Review Ratings](https://img.shields.io/visual-studio-marketplace/stars/chrisbibby.hide-node-modules)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules&ssr=false#review-details)
-[![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/chrisbibby.hide-node-modules)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
-[![OpenVSX Downloads](https://shields.io/open-vsx/dt/ChrisBibby/hide-node-modules?label=Open%20VSX%20Downloads&style=flat-square&color=green)](https://open-vsx.org/extension/chrisbibby/hide-node-modules)
+[![Rating](https://img.shields.io/visual-studio-marketplace/r/chrisbibby.hide-node-modules?color=blue&labelColor=grey)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
+[![Review Ratings](https://img.shields.io/visual-studio-marketplace/stars/chrisbibby.hide-node-modules?color=blue&labelColor=grey)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules&ssr=false#review-details)
+[![Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/chrisbibby.hide-node-modules?color=blue&labelColor=grey)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
+[![OpenVSX Downloads](https://shields.io/open-vsx/dt/ChrisBibby/hide-node-modules?label=Open%20VSX%20Downloads&style=flat-square&color=blue&labelColor=grey)](https://open-vsx.org/extension/chrisbibby/hide-node-modules)
 
-[![Last Github Commit](https://img.shields.io/github/last-commit/chrisbibby/vscode_hide-node-modules)](https://github.com/ChrisBibby/vscode_hide-node-modules)
-[![Last Updated](https://img.shields.io/visual-studio-marketplace/last-updated/chrisbibby.hide-node-modules)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
-[![Known Vulnerabilities](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules/badge.svg)](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-%C2%A32-green)](https://buymeacoffee.com/bibby)
+[![Last Github Commit](https://img.shields.io/github/last-commit/chrisbibby/vscode_hide-node-modules?color=blue&labelColor=grey)](https://github.com/ChrisBibby/vscode_hide-node-modules)
+[![Last Updated](https://img.shields.io/visual-studio-marketplace/last-updated/chrisbibby.hide-node-modules?color=blue&labelColor=grey)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
+[![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/chrisbibby/vscode_hide-node-modules?color=blue&labelColor=grey)](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-☕️-blue?labelColor=grey)](https://buymeacoffee.com/bibby)
 
 # Hide Node Modules README
 
