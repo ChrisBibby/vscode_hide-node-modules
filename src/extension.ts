@@ -79,13 +79,13 @@ async function hasPackageJson(): Promise<boolean> {
 disposables.push(
   vscode.commands.registerCommand(HIDE_COMMAND, async () => {
     hideNodeModules(true);
-  })
+  }),
 );
 
 disposables.push(
   vscode.commands.registerCommand(SHOW_COMMAND, async () => {
     hideNodeModules(false);
-  })
+  }),
 );
 
 export async function activate({ subscriptions }: vscode.ExtensionContext): Promise<void> {

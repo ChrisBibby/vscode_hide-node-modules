@@ -10,8 +10,7 @@
     "**/.classpath": true,
     "**/.project": true,
     "**/.settings": true,
-    "**/.factorypath": true,
-    "**/node_modules": true
+    "**/.factorypath": true
   },
   "search.exclude": {
     "out": true // set this to false to include "out" folder in search results
