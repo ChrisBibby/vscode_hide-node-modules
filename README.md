@@ -6,7 +6,6 @@
 [![Last Github Commit](https://img.shields.io/github/last-commit/chrisbibby/vscode_hide-node-modules?color=blue&labelColor=grey)](https://github.com/ChrisBibby/vscode_hide-node-modules)
 [![Last Updated](https://img.shields.io/visual-studio-marketplace/last-updated/chrisbibby.hide-node-modules?color=blue&labelColor=grey)](https://marketplace.visualstudio.com/items?itemName=chrisbibby.hide-node-modules)
 [![Known Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/chrisbibby/vscode_hide-node-modules?color=blue&labelColor=grey)](https://snyk.io/test/github/ChrisBibby/vscode_hide-node-modules)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-☕️-blue?labelColor=grey)](https://buymeacoffee.com/bibby)
 
 # Hide Node Modules README
 
