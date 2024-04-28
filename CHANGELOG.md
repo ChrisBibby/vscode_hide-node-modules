@@ -2,6 +2,11 @@
 
 All changes to the "Hide Node Modules" VScode extension will be documented in this file:
 
+### 1.3.0 - (April 28 2024)
+
+- Updated readme (removed broken link)
+- Updated dependencies
+
 ### v1.1.8 - (December 02 2023)
 
 - Updated dependencies
