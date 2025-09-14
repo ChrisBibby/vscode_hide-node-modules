@@ -49,10 +49,10 @@ function toggleStatusBar(hidden: boolean) {
   statusBarItem.text = hidden ? '$(eye-closed) Node_Modules' : '$(eye) Node_Modules';
   statusBarItem.tooltip = hidden ? 'Node_Modules - Hidden' : 'Node_Modules - Visible';
 
-  (statusBarItem.command = hidden ? SHOW_COMMAND : HIDE_COMMAND),
+  ((statusBarItem.command = hidden ? SHOW_COMMAND : HIDE_COMMAND),
     async () => {
       hideNodeModules(hidden);
-    };
+    });
 }
 function getAutoHideSetting(): boolean {
   return vscode.workspace.getConfiguration().get(AUTO_HIDE_SETTING, false);
